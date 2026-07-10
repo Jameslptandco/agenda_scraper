@@ -1,0 +1,22 @@
+# === Secrets — NEVER commit (holds the sending email account's password) ===
+email_config.json
+
+# === Machine state / logs (rebuilt every run) ===
+state.json
+*.log
+
+# === Python ===
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# === Stale local outputs from an early test run ===
+#     (real output now goes to the SharePoint AgendaMinutes folder, not here)
+/index.html
+/cornwall_council_index.csv
+/cancellations.csv
+/agendas_minutes/
+
+# Kept on purpose: council_meetings.py, cornwall_meetings.py, README.md,
+#                  email_config.example.json, setup_schedule.bat, git_setup.bat

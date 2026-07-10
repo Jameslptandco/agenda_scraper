@@ -1,0 +1,9 @@
+{
+  "_comment": "Copy this file to email_config.json and fill in real values. Gmail example shown. For Gmail you MUST use an App Password (Google Account > Security > 2-Step Verification > App passwords), NOT your normal password. Keep email_config.json private - it holds a password.",
+  "smtp_host": "smtp.gmail.com",
+  "smtp_port": 587,
+  "username": "your.address@gmail.com",
+  "password": "your-16-character-app-password",
+  "from_addr": "your.address@gmail.com",
+  "to_addr": "dad@example.com"
+}

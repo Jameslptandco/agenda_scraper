@@ -10,6 +10,9 @@ export AGENDA_OUTPUT_BASE="${AGENDA_OUTPUT_BASE:-$HOME/AgendaMinutes}"          
 RCLONE_DEST="${RCLONE_DEST:-sharepoint:07_Products/Second Cut/AgendaMinutes}"                  # path inside the Operations library
 # --------------------------------------------------------------------
 
+# Alert on failure: if any step below errors out, email a heads-up. No-op until email_config.json exists.
+trap 'printf "The EO council meeting scraper failed at %s on host %s.\nCheck ~/agenda_scraper/run.log on the Forge for details.\n" "$(date "+%F %T")" "$(hostname)" | python3 notify.py "EO council meeting scraper FAILED on the Forge" || true' ERR
+
 mkdir -p "$AGENDA_OUTPUT_BASE"
 echo "=== $(date '+%F %T') meeting scraper ==="
 python3 council_meetings.py

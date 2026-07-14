@@ -8,6 +8,9 @@ cd "$(dirname "$0")"
 export AGENDA_OUTPUT_BASE="${AGENDA_OUTPUT_BASE:-$HOME/AgendaMinutes}"
 RCLONE_DEST="${RCLONE_DEST:-sharepoint:07_Products/Second Cut/AgendaMinutes}"
 
+# Alert on failure: if any step below errors out, email a heads-up. No-op until email_config.json exists.
+trap 'printf "The EO council keyword digest failed at %s on host %s.\nCheck ~/agenda_scraper/digest.log on the Forge for details.\n" "$(date "+%F %T")" "$(hostname)" | python3 notify.py "EO council keyword digest FAILED on the Forge" || true' ERR
+
 echo "=== $(date '+%F %T') keyword digest ==="
 python3 digest.py
 

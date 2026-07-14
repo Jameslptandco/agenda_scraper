@@ -19,6 +19,17 @@ EMAIL_CFG = os.path.join(HERE, "email_config.json")   # local (holds a password 
 # (SharePoint subfolder name, eScribe subdomain)
 MUNICIPALITIES = [
     {"name":"Cornwall",              "platform":"escribe",  "sub":"pub-cornwall"},
+    {"name":"Ottawa",                "platform":"escribe",  "sub":"pub-ottawa"},
+    {"name":"Kingston",              "platform":"escribe",  "sub":"pub-cityofkingston"},
+    {"name":"Carleton Place",        "platform":"escribe",  "sub":"pub-carletonplace", "group":"Lanark"},
+    {"name":"Smiths Falls",          "platform":"escribe",  "sub":"pub-smithsfalls", "group":"Lanark"},
+    {"name":"Perth",                 "platform":"civicweb", "host":"perth.civicweb.net",
+     "agenda_folder":3854,   "minutes_folder":3933,  "group":"Lanark"},
+    {"name":"Renfrew",               "platform":"escribe",  "sub":"pub-renfrew", "group":"Renfrew"},
+    {"name":"Hastings County",       "platform":"civicweb", "host":"hastingscounty.civicweb.net",
+     "agenda_folder":3363,   "minutes_folder":2080,  "group":"Quinte"},
+    {"name":"Lennox-Addington County","platform":"civicweb", "host":"lennoxandaddington.civicweb.net",
+     "agenda_folder":1009,   "minutes_folder":1016,  "group":"Quinte"},
     {"name":"The Nation",            "platform":"escribe",  "sub":"pub-thenation",          "group":"Prescott-Russell"},
     {"name":"East Hawkesbury",       "platform":"escribe",  "sub":"pub-easthawkesbury",     "group":"Prescott-Russell"},
     {"name":"Alfred-Plantagenet",    "platform":"escribe",  "sub":"pub-alfred-plantagenet", "group":"Prescott-Russell"},
@@ -29,11 +40,47 @@ MUNICIPALITIES = [
     {"name":"UCPR (County Council)", "platform":"escribe",  "sub":"pub-ucpr",               "group":"Prescott-Russell"},
     {"name":"Russell",               "platform":"civicweb", "host":"russell.civicweb.net",
      "agenda_folder":42032, "minutes_folder":42034,                                         "group":"Prescott-Russell"},
+    {"name":"Belleville",            "platform":"civicweb", "host":"citybellevilleon.civicweb.net",
+     "agenda_folder":1021,  "minutes_folder":93732, "group":"Quinte"},
+    {"name":"Quinte West",           "platform":"civicweb", "host":"quintewest.civicweb.net",
+     "agenda_folder":11999, "minutes_folder":13587, "group":"Quinte"},
+    {"name":"Prince Edward County",  "platform":"civicweb", "host":"princeedwardcounty.civicweb.net",
+     "agenda_folder":150,   "minutes_folder":150,   "group":"Quinte"},
+    {"name":"Tweed",                 "platform":"escribe",  "sub":"pub-tweed", "group":"Quinte"},
+    {"name":"Loyalist",              "platform":"civicweb", "host":"loyalist.civicweb.net",
+     "agenda_folder":137776, "minutes_folder":137825, "group":"Quinte"},
+    {"name":"Greater Napanee",       "platform":"civicweb", "host":"greaternapanee.civicweb.net",
+     "agenda_folder":5532,   "minutes_folder":238,    "group":"Quinte"},
+    {"name":"Stone Mills",           "platform":"civicweb", "host":"stonemills.civicweb.net",
+     "agenda_folder":3529,   "minutes_folder":3543,   "group":"Quinte"},
+    {"name":"South Stormont",        "platform":"escribe",  "sub":"pub-southstormont", "group":"SDG"},
+    {"name":"North Stormont",        "platform":"civicweb", "host":"northstormont.civicweb.net",
+     "agenda_folder":1021,   "minutes_folder":5046,   "group":"SDG"},
+    {"name":"South Dundas",          "platform":"escribe",  "sub":"pub-southdundas", "group":"SDG"},
+    {"name":"North Dundas",          "platform":"escribe",  "sub":"pub-northdundas", "group":"SDG"},
+    {"name":"South Glengarry",       "platform":"escribe",  "sub":"pub-southglengarry", "group":"SDG"},
+    {"name":"SDG Counties",          "platform":"escribe",  "sub":"pub-sdgcounties", "group":"SDG"},
+    {"name":"North Glengarry",       "platform":"webpage", "base":"https://www.northglengarry.ca",
+     "listing_url":"https://www.northglengarry.ca/government/council-meeting-information/", "group":"SDG"},
+    {"name":"Brockville",            "platform":"civicweb", "host":"brockville.civicweb.net",
+     "agenda_folder":9,      "minutes_folder":15,    "group":"Leeds-Grenville"},
+    {"name":"Prescott",              "platform":"escribe",  "sub":"pub-prescott", "group":"Leeds-Grenville"},
+    {"name":"North Grenville",       "platform":"escribe",  "sub":"pub-northgrenville", "group":"Leeds-Grenville"},
+    {"name":"Rideau Lakes",          "platform":"escribe",  "sub":"pub-rideaulakes", "group":"Leeds-Grenville"},
+    {"name":"Augusta",               "platform":"escribe",  "sub":"pub-augusta", "group":"Leeds-Grenville"},
+    {"name":"Edwardsburgh-Cardinal", "platform":"escribe",  "sub":"pub-twpec", "group":"Leeds-Grenville"},
+    {"name":"Leeds & Thousand Islands","platform":"escribe","sub":"pub-leeds1000islands", "group":"Leeds-Grenville"},
+    {"name":"United Counties (L&G)",  "platform":"escribe",  "sub":"pub-uclg", "group":"Leeds-Grenville"},
+    {"name":"Addington Highlands",   "platform":"civicweb", "host":"addingtonhighlands.civicweb.net",
+     "agenda_folder":1021,   "minutes_folder":5342,  "group":"Quinte"},
+    {"name":"Deseronto",             "platform":"civicweb", "host":"deseronto.civicweb.net",
+     "agenda_folder":1021,   "minutes_folder":4023,  "group":"Quinte"},
 ]
 
 LOOKBACK_DAYS, LOOKAHEAD_DAYS = 240, 45
+MAX_PDF_MB = 150; MAX_PDF_BYTES = MAX_PDF_MB * 1024 * 1024   # a single PDF over this is linked online, not downloaded (mainly Russell's 200-300 MB agenda packages)
 INC_RE = re.compile(r"council|conseil|regular meeting|special meeting|r.union ordinaire|s.ance ordinaire", re.I)
-EXC_RE = re.compile(r"committee|comit|closed|huis|public|planning|zoning|variance|advisory|consultation|engagement|statutory|budget|library|management|standing|inaugural", re.I)
+EXC_RE = re.compile(r"committee|comit|closed|huis|public|planning|zoning|variance|advisory|consultation|engagement|statutory|budget|library|management|standing|inaugural|commission|board|working group|sub-", re.I)
 AGENDA_RE  = re.compile(r"agenda|ordre du jour", re.I)
 MINUTES_RE = re.compile(r"minute|proc.s|postminutes", re.I)
 VERIFY_URL = "https://www.prescott-russell.on.ca/"
@@ -50,8 +97,20 @@ def fetch_meetings(base, start, end, timeout=60):
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return json.loads(r.read().decode("utf-8")).get("d", []) or []
 
-def get_bytes(url, timeout=120):
-    with urllib.request.urlopen(urllib.request.Request(url, headers=HEADERS), timeout=timeout) as r: return r.read()
+def get_bytes(url, timeout=120, max_bytes=None):
+    with urllib.request.urlopen(urllib.request.Request(url, headers=HEADERS), timeout=timeout) as r:
+        if max_bytes is None:
+            return r.read()
+        cl = r.headers.get("Content-Length")
+        if cl and cl.isdigit() and int(cl) > max_bytes:
+            return b""                      # too big to sync -> caller links it online
+        buf = bytearray()
+        while True:
+            chunk = r.read(65536)
+            if not chunk: break
+            buf += chunk
+            if len(buf) > max_bytes: return b""
+        return bytes(buf)
 
 def parse_start(m):
     for fmt in ("%Y/%m/%d %H:%M:%S","%Y-%m-%d %H:%M:%S","%Y/%m/%d","%Y-%m-%d"):
@@ -170,7 +229,7 @@ def process_escribe(muni, state, log, _fetch, _get):
                 fname = "%s_%s_%s.pdf" % (ymd, safe(m.get("MeetingType","")), label); fpath = os.path.join(dirs[label], fname)
                 if url in done and os.path.exists(fpath): rec[label.lower()] = "pdf|%s/%s" % (label, fname); continue
                 try:
-                    blob = _get(url)
+                    blob = _get(url, max_bytes=MAX_PDF_BYTES)
                     if blob[:4] == b"%PDF":
                         with open(fpath,"wb") as f: f.write(blob)
                         rec[label.lower()] = "pdf|%s/%s" % (label, fname); done.add(url); ndl += 1
@@ -203,8 +262,31 @@ def _cw_years(host, root, _get):
         if typ == "folder" and re.fullmatch(r"\d{4}", t): out[int(t)] = did
     return out
 
+_CW_MONTHS = {"jan":1,"feb":2,"mar":3,"apr":4,"may":5,"jun":6,"jul":7,"aug":8,"sep":9,"oct":10,"nov":11,"dec":12}
+def _cw_date(title):
+    m = re.search(r"(\d{4})-(\d{2})-(\d{2})", title)
+    if m: return "%s-%s-%s" % (m.group(1), m.group(2), m.group(3))
+    m = re.search(r"\b(\d{1,2})\s+([A-Za-z]{3,9})\s+(\d{4})\b", title)
+    if m:
+        mi = _CW_MONTHS.get(m.group(2)[:3].lower())
+        if mi: return "%s-%02d-%02d" % (m.group(3), mi, int(m.group(1)))
+    m = re.search(r"\b([A-Za-z]{3,9})\s+(\d{1,2}),?\s+(\d{4})\b", title)   # "May 28, 2026"
+    if m:
+        mi = _CW_MONTHS.get(m.group(1)[:3].lower())
+        if mi: return "%s-%02d-%02d" % (m.group(3), mi, int(m.group(2)))
+    return None
+
 def _cw_docs(host, fid, _get):
-    return [(did, html.unescape(title)) for did, typ, title in CW_ROW_RE.findall(_cw_html(host, fid, _get)) if typ == "document"]
+    """Documents (id, title) in a folder. If the folder holds per-meeting SUBFOLDERS instead of
+    files (e.g. Quinte West nests year -> meeting -> docs), descend one level to collect them."""
+    docs, subs = [], []
+    for did, typ, title in CW_ROW_RE.findall(_cw_html(host, fid, _get)):
+        (docs if typ == "document" else subs).append((did, html.unescape(title)))
+    if not docs and subs:
+        for sid, _t in subs:
+            for did, typ, title in CW_ROW_RE.findall(_cw_html(host, sid, _get)):
+                if typ == "document": docs.append((did, html.unescape(title)))
+    return docs
 
 def process_civicweb(muni, state, log, _get):
     name = muni["name"]; host = muni["host"]
@@ -214,6 +296,7 @@ def process_civicweb(muni, state, log, _get):
     ms = state.setdefault(name, {"done": []}); done = set(ms.get("done", []))
     by_key = {}; ndl = 0
     for label, root in (("Agenda", muni["agenda_folder"]), ("Minutes", muni["minutes_folder"])):
+        type_re = AGENDA_RE if label == "Agenda" else MINUTES_RE
         try: years = _cw_years(host, root, _get)
         except Exception as e:
             log.append("%-22s %s fetch FAILED (%s)" % (name, label, type(e).__name__)); continue
@@ -221,11 +304,12 @@ def process_civicweb(muni, state, log, _get):
             try: docs = _cw_docs(host, years[y], _get)
             except Exception: continue
             for did, title in docs:
-                if not re.search(r"council", title, re.I): continue     # English council meetings (excludes FR "conseil")
-                if not title.rstrip().endswith("Pdf"): continue          # prefer the PDF copy over Html
-                md = re.search(r"(\d{4}-\d{2}-\d{2})", title)
-                if not md: continue
-                ymd = md.group(1); mtype = title.split(" - ")[0].strip()
+                if re.search(r"conseil|ordre du jour|proc.s|s.ance", title, re.I): continue  # skip French copy (folder is council-scoped)
+                if re.search(r"\bhtml?\s*$", title, re.I): continue      # skip the HTML twin; keep PDF / bare / Adopted (verified by %PDF on download)
+                if not type_re.search(title): continue
+                ymd = _cw_date(title)
+                if not ymd: continue
+                mtype = title.split(" - ")[0].strip()
                 rec = by_key.setdefault((ymd, mtype), {"date": ymd, "meeting_type": mtype})
                 if rec.get(label.lower()): continue
                 url = "https://%s/document/%s" % (host, did)
@@ -233,7 +317,7 @@ def process_civicweb(muni, state, log, _get):
                 fpath = os.path.join(dirs[label], fname)
                 if url in done and os.path.exists(fpath): rec[label.lower()] = "pdf|%s/%s" % (label, fname); continue
                 try:
-                    blob = _get(url)
+                    blob = _get(url, max_bytes=MAX_PDF_BYTES)
                     if blob[:4] == b"%PDF":
                         with open(fpath, "wb") as f: f.write(blob)
                         rec[label.lower()] = "pdf|%s/%s" % (label, fname); done.add(url); ndl += 1
@@ -248,15 +332,103 @@ def process_civicweb(muni, state, log, _get):
     log.append("%-22s meetings=%-3d new PDFs=%-3d" % (name, len(rows), ndl))
     return []
 
+# ---------- self-hosted webpage (e.g. North Glengarry posts /media/ PDFs on its own page) ----------
+WP_TOK = re.compile(r'(?P<mon>January|February|March|April|May|June|July|August|September|October|November|December)\s+(?P<day>\d{1,2}),?\s+(?P<yr>\d{4})|href="(?P<href>/media/[^"]+\.pdf)"[^>]*>\s*(?P<label>Agenda|Minutes)', re.I)
+
+def process_webpage(muni, state, log, _get):
+    """Scrape a self-hosted listing page: walk it in document order, tracking the current meeting
+    date (a heading), and attach each Agenda/Minutes /media/ PDF link that follows to that date.
+    More fragile than the portal paths (depends on the page's HTML), so it's flagged in the README."""
+    name = muni["name"]; base = muni["base"].rstrip("/")
+    out_dir = muni_dir(muni)
+    dirs = {"Agenda": os.path.join(out_dir, "Agenda"), "Minutes": os.path.join(out_dir, "Minutes")}
+    for d in dirs.values(): os.makedirs(d, exist_ok=True)
+    ms = state.setdefault(name, {"done": []}); done = set(ms.get("done", []))
+    try:
+        page = _get(muni["listing_url"]).decode("utf-8", "replace")
+    except Exception as e:
+        log.append("%-22s fetch FAILED (%s)" % (name, type(e).__name__)); return []
+    meetings = {}; cur = None
+    for m in WP_TOK.finditer(page):
+        if m.group("mon"):
+            mo = _CW_MONTHS.get(m.group("mon")[:3].lower())
+            cur = "%s-%02d-%02d" % (m.group("yr"), mo, int(m.group("day"))) if mo else None
+        elif m.group("href") and cur:
+            meetings.setdefault(cur, {}).setdefault(m.group("label").lower(), base + m.group("href"))
+    cutoff = date.today().year - (CIVICWEB_YEARS - 1)
+    rows = []; ndl = 0
+    for ymd in sorted(meetings, reverse=True):
+        if int(ymd[:4]) < cutoff: continue
+        rec = {"date": ymd, "meeting_type": "Council Meeting"}
+        for label in ("Agenda", "Minutes"):
+            url = meetings[ymd].get(label.lower())
+            if not url: continue
+            fname = "%s_Council-Meeting_%s.pdf" % (ymd, label)
+            fpath = os.path.join(dirs[label], fname)
+            if url in done and os.path.exists(fpath): rec[label.lower()] = "pdf|%s/%s" % (label, fname); continue
+            try:
+                blob = _get(url, max_bytes=MAX_PDF_BYTES)
+                if blob[:4] == b"%PDF":
+                    with open(fpath, "wb") as f: f.write(blob)
+                    rec[label.lower()] = "pdf|%s/%s" % (label, fname); done.add(url); ndl += 1
+                else: rec[label.lower()] = "web|%s" % url
+            except Exception: pass
+        rows.append(rec)
+    write_html_index(name, out_dir, rows)
+    with open(os.path.join(out_dir, "index.csv"), "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f); w.writerow(["date","meeting_type","agenda","minutes"])
+        for r in rows: w.writerow([r["date"], r["meeting_type"], r.get("agenda",""), r.get("minutes","")])
+    ms["done"] = sorted(done)
+    log.append("%-22s meetings=%-3d new PDFs=%-3d" % (name, len(rows), ndl))
+    return []
+
 def process_muni(muni, state, log, _fetch, _get):
-    if muni.get("platform") == "civicweb": return process_civicweb(muni, state, log, _get)
+    p = muni.get("platform")
+    if p == "civicweb": return process_civicweb(muni, state, log, _get)
+    if p == "webpage":  return process_webpage(muni, state, log, _get)
     return process_escribe(muni, state, log, _fetch, _get)
+
+MASTER_ORDER = ["", "Prescott-Russell", "SDG", "Quinte", "Leeds-Grenville", "Lanark", "Renfrew"]
+MASTER_LABEL = {"": "Cities", "SDG": "SD&G", "Leeds-Grenville": "Leeds & Grenville", "Prescott-Russell": "Prescott-Russell"}
+MASTER_TOP = '''<!DOCTYPE html><html><head><meta charset="utf-8"><title>Eastern Ontario Council Agendas &amp; Minutes</title>
+<style>body{font-family:Segoe UI,-apple-system,Arial,sans-serif;margin:0;background:#f5f6f8;color:#1f2430}
+.wrap{max-width:920px;margin:26px auto;padding:0 16px}h1{font-size:22px;margin:0 0 3px}
+.sub{color:#6b7280;font-size:13px;margin-bottom:20px}
+.grp{background:#fff;border:1px solid #e6e9ee;border-radius:9px;padding:13px 17px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.grp h2{font-size:15px;margin:0 0 10px;color:#1f3a5f}.grp h2 span{color:#9aa1ab;font-weight:400;font-size:12.5px}
+.towns{display:flex;flex-wrap:wrap;gap:8px}
+.towns a{display:inline-block;padding:6px 13px;border-radius:6px;background:#eef2f7;color:#1a56c4;text-decoration:none;font-size:13.5px;font-weight:600}
+.towns a:hover{background:#dde7f5}</style></head><body><div class="wrap">
+<h1>Eastern Ontario &mdash; Council Agendas &amp; Minutes</h1>
+<div class="sub">__N__ municipalities &middot; updated __TS__ &middot; click a town to open its agendas &amp; minutes</div>
+'''
+MASTER_BOT = "</div></body></html>"
+
+def write_master_index(out_base):
+    groups = {}
+    for muni in MUNICIPALITIES:
+        g = muni.get("group") or ""
+        href = ((folder(g) + "/") if g else "") + folder(muni["name"]) + "/index.html"
+        groups.setdefault(g, []).append((muni["name"], href.replace(" ", "%20")))
+    order = [g for g in MASTER_ORDER if g in groups] + [g for g in groups if g not in MASTER_ORDER]
+    total = sum(len(v) for v in groups.values())
+    secs = []
+    for g in order:
+        links = " ".join('<a href="%s">%s</a>' % (h, safe_html(n)) for n, h in groups[g])
+        secs.append('<div class="grp"><h2>%s <span>(%d)</span></h2><div class="towns">%s</div></div>' % (MASTER_LABEL.get(g, g), len(groups[g]), links))
+    html = MASTER_TOP.replace("__N__", str(total)).replace("__TS__", datetime.now().strftime("%Y-%m-%d %H:%M")) + "".join(secs) + MASTER_BOT
+    try:
+        with open(os.path.join(out_base, "index.html"), "w", encoding="utf-8") as f: f.write(html)
+    except Exception as e: print("   master index write error:", e)
+
+def safe_html(s): return (s or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 def run(_fetch=fetch_meetings, _get=get_bytes):
     state = json.load(open(STATE_F)) if os.path.exists(STATE_F) else {}
     log, all_events = [], []
     for muni in MUNICIPALITIES:
         all_events += process_muni(muni, state, log, _fetch, _get)
+    write_master_index(OUTPUT_BASE)
     if all_events:
         cfg = load_email_config()
         lines = ["Heads up - Eastern Ontario council meeting change(s) detected:", ""]

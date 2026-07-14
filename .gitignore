@@ -3,6 +3,7 @@ email_config.json
 
 # === Machine state / logs (rebuilt every run) ===
 state.json
+digest_state.json
 *.log
 
 # === Python ===
@@ -18,5 +19,5 @@ venv/
 /cancellations.csv
 /agendas_minutes/
 
-# Kept on purpose: council_meetings.py, cornwall_meetings.py, README.md,
-#                  email_config.example.json, setup_schedule.bat, git_setup.bat
+# Kept on purpose: council_meetings.py, digest.py, cornwall_meetings.py, README.md,
+#                  email_config.example.json, setup_schedule.bat, git_setup.bat, save_to_git.bat

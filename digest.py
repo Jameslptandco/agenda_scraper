@@ -15,7 +15,7 @@ from email.mime.text import MIMEText
 from datetime import date, datetime, timedelta
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ROOT = r"C:\Users\jnpie\LPT\LPT Builds - Operations\07_Products\Second Cut\AgendaMinutes"
+ROOT = os.environ.get("AGENDA_OUTPUT_BASE") or r"C:\Users\jnpie\LPT\LPT Builds - Operations\07_Products\Second Cut\AgendaMinutes"
 OUT_DIR   = os.path.join(ROOT, "_Digests")
 STATE_F   = os.path.join(HERE, "digest_state.json")     # local: which files already scanned
 EMAIL_CFG = os.path.join(HERE, "email_config.json")     # reuse the meetings one (holds a password)

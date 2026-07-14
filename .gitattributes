@@ -1,0 +1,2 @@
+# Keep shell scripts as LF so they run on the Linux Forge even though the repo is edited on Windows
+*.sh text eol=lf

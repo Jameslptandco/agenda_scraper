@@ -12,7 +12,7 @@ from email.mime.text import MIMEText
 from datetime import date, datetime, timedelta
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUTPUT_BASE = r"C:\Users\jnpie\LPT\LPT Builds - Operations\07_Products\Second Cut\AgendaMinutes"
+OUTPUT_BASE = os.environ.get("AGENDA_OUTPUT_BASE") or r"C:\Users\jnpie\LPT\LPT Builds - Operations\07_Products\Second Cut\AgendaMinutes"
 STATE_F   = os.path.join(HERE, "state.json")          # local (watcher memory)
 EMAIL_CFG = os.path.join(HERE, "email_config.json")   # local (holds a password - keep OUT of SharePoint)
 
